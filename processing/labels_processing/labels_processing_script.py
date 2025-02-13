@@ -1,6 +1,6 @@
 import pandas as pd
 
-base_path = "data/labels"
+base_path = "/opt/ml/processing"
 
 
 def load_labels(
@@ -39,22 +39,22 @@ def transform_labels(
 def run():
     df_train = transform_labels(
         **load_labels(
-            csv_meniscus_filepath = base_path + "/train-meniscus.csv",
-            csv_acl_filepath = base_path + "/train-acl.csv",
-            csv_abnormal_filepath = base_path + "/train-abnormal.csv",
+            csv_meniscus_filepath = base_path + "/input/train-meniscus.csv",
+            csv_acl_filepath = base_path + "/input/train-acl.csv",
+            csv_abnormal_filepath = base_path + "/input/train-abnormal.csv",
         ),
     )
 
     df_val = transform_labels(
         **load_labels(
-            csv_meniscus_filepath = base_path + "/valid-meniscus.csv",
-            csv_acl_filepath = base_path + "/valid-acl.csv",
-            csv_abnormal_filepath = base_path + "/valid-abnormal.csv",
+            csv_meniscus_filepath = base_path + "/input/valid-meniscus.csv",
+            csv_acl_filepath = base_path + "/input/valid-acl.csv",
+            csv_abnormal_filepath = base_path + "/input/valid-abnormal.csv",
         ),
     )
     
     df_full = pd.concat([df_train, df_val], ignore_index=True)
-    df_full.to_csv(base_path + "/processed_labels.csv", index=False)
+    df_full.to_csv(base_path + "/output/processed_labels.csv", index=False)
     
 
 run()
